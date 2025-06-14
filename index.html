@@ -2,47 +2,43 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Edge-to-Edge Plyr Player</title>
-  <link rel="stylesheet" href="https://cdn.plyr.io/3.6.9/plyr.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+  <title>ALLROUNDER</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jaw-dev/jaw-player@latest/dist/jaw-player.min.css" />
   <style>
     html, body {
       margin: 0;
       padding: 0;
-      background: #000;
-      overflow: hidden;
-      height: 100vh;
-      width: 100vw;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    #player {
-      width: 100vw;
-      height: auto;
-      max-height: 100vh;
-      object-fit: contain;
       background-color: #000;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+    jaw-player {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
     }
   </style>
 </head>
 <body>
 
-  <video id="player" controls playsinline></video>
+  <jaw-player id="player"></jaw-player>
 
-  <script src="https://cdn.plyr.io/3.6.9/plyr.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/jaw-dev/jaw-player@latest/dist/jaw-player.min.js"></script>
   <script>
     const params = new URLSearchParams(window.location.search);
     const videoURL = params.get("url");
 
-    const videoElement = document.getElementById("player");
-
     if (videoURL) {
-      const source = document.createElement("source");
-      source.src = videoURL;
-      source.type = "video/mp4";
-      videoElement.appendChild(source);
-      new Plyr(videoElement);
+      const player = document.getElementById("player");
+      player.src = videoURL;
+      player.autoplay = true;
+      player.controls = true;
+      player.playsinline = true;
+      player.poster = ''; // Optional poster
     } else {
       alert("No video URL provided. Use ?url=VIDEO_LINK");
     }
